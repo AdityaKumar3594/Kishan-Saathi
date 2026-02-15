@@ -1,265 +1,219 @@
-# Requirements Document: KISHAN SAATHI
+# Requirements Document: Kishan Saathi
 
 ## Introduction
 
-KISHAN SAATHI is a gamified financial literacy platform designed specifically for farmers in rural India (Bharat). The system simulates a full agricultural year where farmers manage seasonal harvest income to cover year-round expenses, savings, investments, and risk protection. Through behavior-based learning and real financial decision-making, the platform aims to bridge the gap between traditional farming and modern digital finance, building financial resilience and confidence among farmers with limited digital literacy.
+Kishan Saathi is a multilingual, hyper-local, gamified financial life simulator designed for Indian farmers with limited financial literacy and low digital fluency. The system provides a safe environment for farmers to learn financial management, recognize scams, and make informed decisions through realistic agricultural simulations. The application operates in low-bandwidth environments on basic smartphones with voice-first interaction.
 
 ## Glossary
 
-- **Platform**: The KISHAN SAATHI gamified financial literacy system
-- **User**: A farmer in rural India using the platform
-- **Simulation**: The agricultural year financial management game
-- **Financial_Year**: A 12-month period representing one agricultural cycle in the simulation
-- **Seasonal_Income**: Income generated during harvest periods in the simulation
-- **Financial_Decision**: User choices regarding expenses, savings, investments, or risk protection
-- **Voice_Interface**: Speech-based input and output system for user interaction
-- **SMS_Interface**: Text message-based communication channel
-- **Hyper_Local_Content**: Region-specific financial information, schemes, and advice
-- **Offline_Mode**: Platform functionality available without internet connectivity
-- **Government_Scheme**: Official financial assistance or benefit programs for farmers
-- **Scam_Alert**: Warning about fraudulent financial activities targeting farmers
-- **Financial_Update**: Current information about markets, prices, or financial opportunities
-- **Risk_Event**: Simulated adverse events (crop failure, medical emergency, etc.) in the game
-- **Language_Module**: Translation and localization component for Indian languages
+- **System**: The Kishan Saathi application (web and backend services)
+- **User**: A rural farmer using the application
+- **Simulation_Engine**: Component managing agricultural cycle simulations
+- **Voice_Interface**: Speech-to-text and text-to-speech processing system
+- **Scam_Detector**: Module for scam awareness training
+- **Decision_Lab**: Gamified scenario presentation system
+- **Sync_Manager**: Component handling offline-first data synchronization
+- **Profile_Manager**: User profile and preferences management system
+- **Scheme_Database**: Repository of government schemes and benefits
+- **Leaderboard_Service**: Community ranking and comparison system
+- **Season**: Agricultural cycle period (Kharif or Rabi)
+- **Event**: Random occurrence affecting simulation (weather, pests, market changes)
+- **Scenario**: Decision-making situation presented to user
+- **Achievement**: Milestone or reward earned through gameplay
+- **Dialect**: Regional language variation (Hindi, Tamil, Telugu, Bengali, Marathi, Punjabi)
 
 ## Requirements
 
-### Requirement 1: User Registration and Profile Management
+### Requirement 1: User Onboarding and Profile Management
 
-**User Story:** As a farmer, I want to register and create my profile, so that I can access personalized financial literacy content.
+**User Story:** As a rural farmer, I want to set up my profile using voice guidance, so that I can start using the application without typing.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL support user registration via voice input, SMS, or text input
-2. WHEN a user registers, THE Platform SHALL collect basic information (name, region, primary crop, preferred language)
-3. THE Platform SHALL store user profiles securely with encrypted personal information
-4. WHEN a user selects a preferred language, THE Platform SHALL deliver all content in that language
-5. THE Platform SHALL support profile updates through voice or SMS commands
+1. WHEN a new user opens the application, THE System SHALL present voice-guided onboarding in the user's selected language
+2. WHEN a user selects their region, THE Profile_Manager SHALL configure hyper-local settings including crops, seasons, and schemes
+3. WHEN a user provides profile information via voice, THE Voice_Interface SHALL convert speech to structured data with 90% accuracy
+4. THE Profile_Manager SHALL store user preferences including language, region, literacy level, and device capabilities
+5. WHEN profile setup is complete, THE System SHALL persist user data locally for offline access
 
 ### Requirement 2: Multilingual Voice Interface
 
-**User Story:** As a farmer with limited digital literacy, I want to interact with the platform using my voice in my native language, so that I can learn without reading complex text.
+**User Story:** As a farmer with limited literacy, I want to interact with the application using my regional language through voice, so that I can use it without reading or typing.
 
 #### Acceptance Criteria
 
-1. THE Voice_Interface SHALL support input and output in multiple Indian languages (Hindi, Tamil, Telugu, Marathi, Bengali, Gujarati, Kannada, Malayalam, Punjabi)
-2. WHEN a user speaks a command, THE Voice_Interface SHALL recognize and process the input within 3 seconds
-3. WHEN the system responds, THE Voice_Interface SHALL use natural, conversational speech in the user's selected language
-4. IF voice recognition fails, THEN THE Platform SHALL prompt the user to repeat or offer SMS alternative
-5. THE Voice_Interface SHALL work in low-bandwidth environments with audio compression
+1. THE Voice_Interface SHALL support speech-to-text conversion in Hindi, Tamil, Telugu, Bengali, Marathi, and Punjabi
+2. THE Voice_Interface SHALL support text-to-speech output in Hindi, Tamil, Telugu, Bengali, Marathi, and Punjabi
+3. WHEN a user speaks a command, THE Voice_Interface SHALL process it within 2 seconds on available connectivity
+4. WHEN connectivity is unavailable, THE Voice_Interface SHALL queue voice inputs and process when connection resumes
+5. THE System SHALL provide visual feedback during voice processing to indicate system status
+6. WHEN dialect variations are detected, THE System SHALL use AI translation to normalize input for processing
 
-### Requirement 3: SMS Communication Channel
+### Requirement 3: Seasonal Cash Flow Simulation
 
-**User Story:** As a farmer without reliable internet access, I want to receive updates and interact via SMS, so that I can stay engaged with the platform.
-
-#### Acceptance Criteria
-
-1. THE SMS_Interface SHALL support basic commands for checking simulation status, balance, and receiving tips
-2. WHEN a user sends an SMS command, THE Platform SHALL respond within 5 minutes
-3. THE Platform SHALL send proactive SMS notifications for important financial updates, government schemes, and scam alerts
-4. THE SMS_Interface SHALL support all languages using Unicode encoding
-5. WHEN sending SMS, THE Platform SHALL keep messages concise (under 160 characters) or split into multiple parts
-
-### Requirement 4: Agricultural Year Simulation
-
-**User Story:** As a farmer, I want to experience a realistic simulation of managing finances over an agricultural year, so that I can learn financial planning in a familiar context.
+**User Story:** As a farmer, I want to simulate my agricultural cycle with realistic income and expenses, so that I can learn to manage my finances better.
 
 #### Acceptance Criteria
 
-1. THE Simulation SHALL represent a 12-month Financial_Year with distinct seasons (sowing, growing, harvest)
-2. WHEN the simulation starts, THE Platform SHALL provide the user with initial Seasonal_Income based on their crop selection
-3. THE Simulation SHALL present monthly expenses (household, farming inputs, education, healthcare) that the user must manage
-4. THE Simulation SHALL progress through time, with each real day representing one simulated week
-5. WHEN the Financial_Year completes, THE Platform SHALL provide a summary of financial outcomes and lessons learned
+1. THE Simulation_Engine SHALL model Kharif season (June-October) and Rabi season (November-March) cycles
+2. WHEN a user starts a new season, THE Simulation_Engine SHALL initialize virtual income based on selected crops and region
+3. THE Simulation_Engine SHALL track expenses across categories: seeds, fertilizers, pesticides, labor, and living expenses
+4. WHEN a user allocates harvest income, THE System SHALL calculate remaining budget and provide forecasts for upcoming expenses
+5. THE Simulation_Engine SHALL advance time in accelerated mode (1 real day = 1 simulated week)
+6. WHEN a season completes, THE System SHALL generate a financial summary showing income, expenses, and savings
 
-### Requirement 5: Financial Decision Making
+### Requirement 4: Gamified Decision Lab
 
-**User Story:** As a farmer, I want to make financial decisions about spending, saving, and investing, so that I can learn the consequences of different choices.
-
-#### Acceptance Criteria
-
-1. WHEN the user receives Seasonal_Income, THE Platform SHALL present options for allocation (expenses, savings, investments, insurance)
-2. THE Platform SHALL simulate realistic consequences for each Financial_Decision within the game context
-3. WHEN a user makes a poor financial decision, THE Platform SHALL provide educational feedback explaining the impact
-4. THE Platform SHALL track all Financial_Decisions and show their cumulative effect on financial health
-5. THE Platform SHALL allow users to undo recent decisions (within same game day) for learning purposes
-
-### Requirement 6: Risk Events and Protection
-
-**User Story:** As a farmer, I want to experience and manage simulated risks like crop failure or medical emergencies, so that I can understand the importance of financial protection.
+**User Story:** As a farmer, I want to face realistic decision-making scenarios with consequences, so that I can learn from mistakes in a safe environment.
 
 #### Acceptance Criteria
 
-1. THE Simulation SHALL introduce random Risk_Events (crop failure, illness, equipment breakdown, price drops) with realistic probabilities
-2. WHEN a Risk_Event occurs, THE Platform SHALL calculate financial impact based on user's protection measures
-3. IF the user has purchased insurance or maintained emergency savings, THEN THE Platform SHALL reduce the negative impact of Risk_Events
-4. THE Platform SHALL explain how different protection strategies would have changed outcomes after each Risk_Event
-5. THE Simulation SHALL ensure at least 2-3 Risk_Events occur per Financial_Year for learning opportunities
+1. WHEN the simulation is active, THE Decision_Lab SHALL present random events including pest attacks, weather changes, and market fluctuations
+2. THE Decision_Lab SHALL provide multiple response options for each scenario with varying financial consequences
+3. WHEN a user makes a decision, THE System SHALL calculate and apply financial impacts to the simulation state
+4. THE Decision_Lab SHALL provide educational feedback explaining why each decision led to specific outcomes
+5. THE System SHALL track decision patterns and adapt scenario difficulty based on user performance
+6. WHEN a user completes a scenario, THE System SHALL award points based on decision quality and financial outcome
 
-### Requirement 7: Savings and Investment Education
+### Requirement 5: Scam Awareness Training
 
-**User Story:** As a farmer, I want to learn about different savings and investment options, so that I can make informed decisions about growing my money.
-
-#### Acceptance Criteria
-
-1. THE Platform SHALL present savings options (bank accounts, post office schemes, digital wallets) with accurate interest rates
-2. THE Platform SHALL present investment options (mutual funds, fixed deposits, government bonds) appropriate for farmers
-3. WHEN a user selects a savings or investment option, THE Platform SHALL simulate realistic returns over time
-4. THE Platform SHALL explain the trade-offs between liquidity, risk, and returns for each option
-5. THE Platform SHALL provide comparisons showing how different strategies perform over the Financial_Year
-
-### Requirement 8: Government Schemes and Benefits
-
-**User Story:** As a farmer, I want to learn about government schemes I'm eligible for, so that I can access financial assistance and benefits.
+**User Story:** As a farmer vulnerable to financial fraud, I want to practice identifying scams, so that I can protect myself from real-world fraud attempts.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL maintain a database of current Government_Schemes relevant to farmers (PM-KISAN, crop insurance, subsidies)
-2. WHEN a user's profile matches eligibility criteria, THE Platform SHALL notify them about relevant Government_Schemes
-3. THE Platform SHALL provide step-by-step guidance on how to apply for each Government_Scheme
-4. THE Platform SHALL deliver Hyper_Local_Content about state-specific and district-specific schemes
-5. WHEN government schemes are updated, THE Platform SHALL refresh content within 7 days
+1. THE Scam_Detector SHALL present simulated scam scenarios including fake calls, fraudulent SMS, and OTP phishing attempts
+2. WHEN a user identifies a scam correctly, THE System SHALL award points and provide positive reinforcement
+3. WHEN a user fails to identify a scam, THE System SHALL provide educational feedback explaining the scam indicators
+4. THE Scam_Detector SHALL maintain a database of real-world scam patterns updated from verified sources
+5. THE System SHALL track scam identification accuracy and provide progress metrics
+6. THE Scam_Detector SHALL present scenarios in increasing difficulty based on user proficiency
 
-### Requirement 9: Scam Awareness and Financial Security
+### Requirement 6: Government Scheme Discovery
 
-**User Story:** As a farmer, I want to learn about common financial scams, so that I can protect myself from fraud.
-
-#### Acceptance Criteria
-
-1. THE Platform SHALL deliver regular Scam_Alerts about common frauds targeting farmers (fake loan offers, phishing, Ponzi schemes)
-2. WHEN a scam pattern is detected in user's region, THE Platform SHALL send proactive warnings via SMS and voice
-3. THE Platform SHALL include interactive scenarios where users identify and avoid scam attempts
-4. THE Platform SHALL provide clear guidance on verifying legitimate financial institutions and offers
-5. THE Platform SHALL maintain a reporting mechanism for users to flag suspected scams
-
-### Requirement 10: Market and Financial Updates
-
-**User Story:** As a farmer, I want to receive timely updates about crop prices and market conditions, so that I can make informed selling decisions.
+**User Story:** As a farmer, I want to discover relevant government schemes in simple language, so that I can access benefits I'm eligible for.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL deliver Financial_Updates about crop prices, market trends, and weather forecasts
-2. THE Platform SHALL provide Hyper_Local_Content specific to the user's region and crops
-3. WHEN significant price changes occur (>10%), THE Platform SHALL send immediate notifications
-4. THE Platform SHALL present price comparisons across nearby markets (mandi rates)
-5. THE Platform SHALL update market information at least daily when connectivity is available
+1. THE Scheme_Database SHALL store government schemes with eligibility criteria, benefits, and application processes
+2. WHEN a user's profile matches scheme eligibility, THE System SHALL notify the user via voice announcement
+3. THE System SHALL present scheme information in simplified language appropriate for the user's literacy level
+4. WHEN a user requests scheme details, THE System SHALL provide step-by-step application guidance via voice
+5. THE Scheme_Database SHALL filter schemes based on user region, crop type, and demographic information
+6. THE System SHALL track which schemes the user has explored and applied for
 
-### Requirement 11: Offline Functionality
+### Requirement 7: Offline-First Operation
 
-**User Story:** As a farmer in an area with unreliable internet, I want to use the platform offline, so that I can continue learning regardless of connectivity.
-
-#### Acceptance Criteria
-
-1. THE Platform SHALL allow users to download simulation content and lessons for Offline_Mode
-2. WHEN operating in Offline_Mode, THE Platform SHALL provide full simulation functionality with locally stored data
-3. THE Platform SHALL queue user actions and sync with the server when connectivity is restored
-4. THE Platform SHALL store at least 30 days of simulation content locally
-5. WHEN transitioning between online and offline modes, THE Platform SHALL maintain seamless user experience without data loss
-
-### Requirement 12: Low-Bandwidth Optimization
-
-**User Story:** As a farmer with limited mobile data, I want the platform to work efficiently on slow connections, so that I can use it without excessive data costs.
+**User Story:** As a farmer in an area with unreliable connectivity, I want the application to work fully offline, so that I can use it anytime without internet access.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL compress all voice audio to minimize bandwidth usage (target: <50KB per minute)
-2. THE Platform SHALL use text-based protocols for data synchronization when bandwidth is limited
-3. THE Platform SHALL prioritize critical content (scam alerts, urgent updates) over non-essential data
-4. THE Platform SHALL provide a data usage indicator showing consumption per session
-5. THE Platform SHALL function on 2G network speeds (minimum 50 kbps)
+1. THE System SHALL function as a Progressive Web App installable on Android devices
+2. WHEN connectivity is unavailable, THE System SHALL provide full simulation, decision-making, and scam training functionality
+3. THE Sync_Manager SHALL store all user actions locally when offline
+4. WHEN connectivity resumes, THE Sync_Manager SHALL synchronize local data with the backend within 30 seconds
+5. THE System SHALL cache all essential content including voice assets, scenarios, and scheme information for offline use
+6. WHEN storage limits are reached, THE System SHALL prioritize critical data and remove least-recently-used cached content
 
-### Requirement 13: Gamification and Progress Tracking
+### Requirement 8: Community Features and Leaderboards
 
-**User Story:** As a farmer, I want to see my progress and earn rewards, so that I stay motivated to continue learning.
-
-#### Acceptance Criteria
-
-1. THE Platform SHALL award points for completing simulation milestones, making good financial decisions, and learning modules
-2. THE Platform SHALL display user progress through levels (Beginner, Learner, Planner, Expert, Master)
-3. WHEN a user reaches a new level, THE Platform SHALL unlock advanced financial concepts and scenarios
-4. THE Platform SHALL provide badges for specific achievements (first savings, avoided scam, completed year)
-5. THE Platform SHALL show a leaderboard comparing progress with other users in the same region (anonymized)
-
-### Requirement 14: Interactive Learning Modules
-
-**User Story:** As a farmer, I want to access short educational modules on specific financial topics, so that I can learn at my own pace.
+**User Story:** As a farmer, I want to compare my progress with other farmers in my region, so that I can stay motivated and learn from peers.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL provide interactive modules on topics (budgeting, credit, insurance, digital payments, taxation)
-2. WHEN a user completes a module, THE Platform SHALL assess understanding through scenario-based questions
-3. THE Platform SHALL adapt content difficulty based on user performance and progress
-4. EACH module SHALL be completable in 5-10 minutes to accommodate busy schedules
-5. THE Platform SHALL allow users to revisit completed modules for review
+1. THE Leaderboard_Service SHALL rank users based on simulation performance, scam identification accuracy, and achievements
+2. WHEN leaderboards are displayed, THE System SHALL show only anonymized usernames to protect privacy
+3. THE Leaderboard_Service SHALL provide regional leaderboards filtered by user's district or state
+4. WHEN a user achieves a new rank, THE System SHALL provide voice notification and visual celebration
+5. THE System SHALL display peer comparison metrics showing average performance in the user's region
+6. THE Leaderboard_Service SHALL update rankings daily when connectivity is available
 
-### Requirement 15: Community and Peer Learning
+### Requirement 9: Data Privacy and Security
 
-**User Story:** As a farmer, I want to learn from other farmers' experiences, so that I can benefit from collective wisdom.
-
-#### Acceptance Criteria
-
-1. THE Platform SHALL provide anonymized success stories from other users who made good financial decisions
-2. THE Platform SHALL allow users to share their simulation outcomes (with consent) to help others learn
-3. THE Platform SHALL moderate all shared content to ensure accuracy and appropriateness
-4. THE Platform SHALL highlight regional best practices based on aggregated user data
-5. THE Platform SHALL protect user privacy by never revealing personal information in shared content
-
-### Requirement 16: Accessibility Features
-
-**User Story:** As a farmer with visual or hearing impairments, I want accessible features, so that I can use the platform effectively.
+**User Story:** As a farmer providing personal information, I want my data to be secure and private, so that I can trust the application with sensitive details.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL support screen reader compatibility for visually impaired users
-2. THE Platform SHALL provide visual captions for all voice content for hearing-impaired users
-3. THE Platform SHALL offer adjustable text size and high-contrast display modes
-4. THE Platform SHALL support haptic feedback for important notifications on compatible devices
-5. THE Platform SHALL provide alternative input methods (voice, touch, keypad) for all core functions
+1. THE System SHALL encrypt all user data at rest using AES-256 encryption
+2. THE System SHALL encrypt all data in transit using TLS 1.3
+3. WHEN a user creates an account, THE System SHALL require only essential information (phone number, region, language)
+4. THE System SHALL NOT share user data with third parties without explicit consent
+5. WHEN a user requests data deletion, THE System SHALL remove all personal information within 48 hours
+6. THE System SHALL store voice recordings only temporarily for processing and delete them after conversion to text
 
-### Requirement 17: Data Privacy and Security
+### Requirement 10: Low-Bandwidth Optimization
 
-**User Story:** As a farmer, I want my personal and financial information protected, so that I can trust the platform with my data.
-
-#### Acceptance Criteria
-
-1. THE Platform SHALL encrypt all user data both in transit and at rest using industry-standard encryption (AES-256)
-2. THE Platform SHALL not share user data with third parties without explicit consent
-3. WHEN collecting user data, THE Platform SHALL clearly explain what data is collected and why
-4. THE Platform SHALL allow users to delete their account and all associated data
-5. THE Platform SHALL comply with Indian data protection regulations and guidelines
-
-### Requirement 18: Performance and Reliability
-
-**User Story:** As a farmer relying on the platform for financial education, I want it to work reliably, so that I can access it whenever needed.
+**User Story:** As a farmer with limited mobile data, I want the application to use minimal data, so that I can afford to use it regularly.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL maintain 99% uptime for core services (excluding scheduled maintenance)
-2. WHEN the platform experiences downtime, THE Platform SHALL provide offline functionality for critical features
-3. THE Platform SHALL respond to user interactions within 2 seconds for local operations
-4. THE Platform SHALL handle at least 10,000 concurrent users without performance degradation
-5. THE Platform SHALL automatically recover from failures without losing user progress
+1. THE System SHALL compress all network requests to minimize data transfer
+2. THE System SHALL use delta synchronization to transfer only changed data
+3. WHEN downloading voice assets, THE System SHALL use compressed audio formats optimized for speech
+4. THE System SHALL provide a data usage dashboard showing consumption by feature
+5. WHEN data usage exceeds user-defined limits, THE System SHALL alert the user and pause non-essential synchronization
+6. THE System SHALL prioritize critical updates (security, scheme notifications) over optional content (leaderboards, achievements)
 
-### Requirement 19: Onboarding and Tutorial
+### Requirement 11: Accessibility for Low-End Devices
 
-**User Story:** As a new user, I want a simple introduction to the platform, so that I can start learning quickly without confusion.
-
-#### Acceptance Criteria
-
-1. WHEN a user first accesses the platform, THE Platform SHALL provide a voice-guided tutorial in their selected language
-2. THE tutorial SHALL be completable in under 5 minutes and cover basic navigation and core features
-3. THE Platform SHALL allow users to skip the tutorial and access it later from settings
-4. THE Platform SHALL use simple, relatable examples from farming life during onboarding
-5. THE Platform SHALL provide contextual help tips during the first simulation session
-
-### Requirement 20: Analytics and Improvement
-
-**User Story:** As a platform administrator, I want to understand how users interact with the system, so that we can continuously improve the learning experience.
+**User Story:** As a farmer with a basic smartphone, I want the application to run smoothly on my device, so that I can use all features without performance issues.
 
 #### Acceptance Criteria
 
-1. THE Platform SHALL collect anonymized usage analytics (feature usage, completion rates, common difficulties)
-2. THE Platform SHALL track learning outcomes and financial literacy improvement metrics
-3. THE Platform SHALL identify content that users find confusing or difficult
-4. THE Platform SHALL generate reports on regional adoption and engagement patterns
-5. THE Platform SHALL use analytics to personalize content recommendations for each user
+1. THE System SHALL run on Android devices with minimum 2GB RAM and Android 8.0
+2. THE System SHALL limit application size to under 10MB for initial download
+3. WHEN rendering UI, THE System SHALL maintain 30 FPS on devices with basic GPUs
+4. THE System SHALL use lazy loading for non-critical features to reduce initial load time
+5. THE System SHALL provide a low-resource mode that disables animations and reduces visual complexity
+6. WHEN device storage is low, THE System SHALL alert the user and provide options to clear cached data
+
+### Requirement 12: Contextual AI Assistance
+
+**User Story:** As a farmer needing guidance, I want personalized advice based on my situation, so that I can make better financial decisions.
+
+#### Acceptance Criteria
+
+1. WHEN a user requests help, THE System SHALL use AI to provide contextual advice based on simulation state and user history
+2. THE System SHALL translate AI responses into the user's selected dialect maintaining cultural context
+3. WHEN providing financial advice, THE System SHALL cite relevant government schemes or best practices
+4. THE System SHALL adapt advice complexity based on user's demonstrated literacy and comprehension level
+5. WHEN AI processing requires connectivity, THE System SHALL provide cached general guidance as fallback
+6. THE System SHALL limit AI queries to essential interactions to minimize data usage and API costs
+
+### Requirement 13: Progress Tracking and Achievements
+
+**User Story:** As a farmer using the application, I want to see my progress and earn rewards, so that I stay motivated to continue learning.
+
+#### Acceptance Criteria
+
+1. THE System SHALL track metrics including seasons completed, decisions made, scams identified, and schemes explored
+2. WHEN a user reaches milestones, THE System SHALL award achievements with voice announcements and visual badges
+3. THE System SHALL provide a progress dashboard showing improvement over time in financial management skills
+4. THE System SHALL calculate a financial literacy score based on simulation performance and decision quality
+5. WHEN a user unlocks new achievements, THE System SHALL share them on the leaderboard (with user permission)
+6. THE System SHALL provide weekly voice summaries of progress and areas for improvement
+
+### Requirement 14: Regional Customization
+
+**User Story:** As a farmer in a specific region, I want content tailored to my local crops and conditions, so that the simulation feels relevant to my real life.
+
+#### Acceptance Criteria
+
+1. THE System SHALL maintain region-specific databases for crops, seasons, market prices, and weather patterns
+2. WHEN a user selects their region, THE Simulation_Engine SHALL load appropriate crop options and seasonal calendars
+3. THE System SHALL adjust event probabilities based on regional climate and agricultural patterns
+4. THE System SHALL present government schemes specific to the user's state and district
+5. WHEN displaying market prices, THE System SHALL use regional benchmarks and local measurement units
+6. THE System SHALL support addition of new regions without requiring application updates
+
+### Requirement 15: Tutorial and Help System
+
+**User Story:** As a new user unfamiliar with smartphones, I want guided tutorials, so that I can learn how to use the application effectively.
+
+#### Acceptance Criteria
+
+1. WHEN a user first launches the application, THE System SHALL provide an interactive voice-guided tutorial
+2. THE System SHALL offer context-sensitive help accessible via voice command at any point
+3. WHEN a user struggles with a feature (multiple failed attempts), THE System SHALL proactively offer assistance
+4. THE System SHALL provide a practice mode where users can explore features without affecting their simulation progress
+5. THE System SHALL allow users to replay tutorials at any time from the settings menu
+6. THE System SHALL track tutorial completion and adapt onboarding based on user's learning pace
